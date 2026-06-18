@@ -46,13 +46,7 @@ nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
 /* ===== Reduced motion 設定の検出 ===== */
 const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ===== Lenis smooth scroll（軽め設定 / reduced-motion 時は無効） ===== */
-let lenis = null;
-if(window.Lenis && !REDUCE){
-  lenis = new Lenis({ duration:0.8, lerp:0.12, smoothWheel:true, wheelMultiplier:1 });
-  const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
-  requestAnimationFrame(raf);
-}
+/* スムーススクロール(Lenis)は負荷軽減のため撤去。ネイティブスクロールを使用 */
 
 /* ===== Splide hero fade slider（reduced-motion 時は自動再生オフ） ===== */
 if(window.Splide && document.getElementById('heroSlider')){
@@ -71,7 +65,6 @@ document.querySelectorAll('.js-text-anime').forEach(el => {
 /* ===== GSAP ScrollTrigger animations（reduced-motion 時はアニメ無効で即表示） ===== */
 if(window.gsap && window.ScrollTrigger && !REDUCE){
   gsap.registerPlugin(ScrollTrigger);
-  if(lenis) lenis.on('scroll', ScrollTrigger.update);
 
   // 行単位テキスト出現（下から せり上がり、stagger）
   gsap.utils.toArray('.js-text-anime').forEach(el => {
@@ -92,18 +85,7 @@ if(window.gsap && window.ScrollTrigger && !REDUCE){
       scrollTrigger:{ trigger:el, start:'top 80%', once:true } });
   });
 
-  // 軽いパララックス装飾
-  gsap.utils.toArray('.js-parallax-img').forEach(el => {
-    gsap.fromTo(el, { y:-30 }, { y:30, ease:'none',
-      scrollTrigger:{ trigger:el, start:'top bottom', end:'bottom top', scrub:1 } });
-  });
-
-  // メンバー：写真グリッドのパララックス
-  gsap.utils.toArray('.members__col').forEach(col => {
-    const dir = col.dataset.speed === 'down' ? 4 : -4;
-    gsap.fromTo(col, { yPercent:-dir }, { yPercent:dir, ease:'none',
-      scrollTrigger:{ trigger:'.js-members', start:'top bottom', end:'bottom top', scrub:1 } });
-  });
+  // scrub パララックス（members / 装飾）は毎フレーム負荷が高いため撤去
 } else {
   // フォールバック：ライブラリ未読込時はそのまま表示
   document.querySelectorAll('.js-fade-in,.js-fade-in-bottom').forEach(el => el.classList.add('is-shown'));
