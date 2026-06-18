@@ -9,7 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Lato:wght@300;400&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Old+Mincho:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide-core.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.2.4/swiper-bundle.min.css">
 <link rel="stylesheet" href="/css/style.css">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#0e1c38">
@@ -252,13 +251,8 @@
       <p class="sec__sub">#Column</p>
       <h2 class="sec__ttl">コラム</h2>
     </hgroup>
-    <div class="columns__swiper swiper js-fade-in">
-      <div class="columns__list swiper-wrapper">
-        <div class="swiper-slide"><div class="columns__empty">現在コラムはありません。</div></div>
-      </div>
-    </div>
-    <div class="columns__bottom">
-      <div class="columns__scrollbar swiper-scrollbar"></div>
+    <div class="columns__empty js-fade-in" style="min-height:200px">現在コラムはありません。</div>
+    <div class="columns__bottom" style="justify-content:flex-end">
       <a href="/columns/" class="btn-line">すべてのコラムを見る <span class="arrow">→</span></a>
     </div>
   </div>
@@ -348,12 +342,10 @@
 </footer>
 
 <!-- ===== Libraries (本家準拠) ===== -->
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11.2.4/swiper-bundle.min.js"></script>
-<script src="/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js" defer></script>
+<script src="/js/main.js" defer></script>
 </body>
 </html>

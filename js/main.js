@@ -46,10 +46,10 @@ nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
 /* ===== Reduced motion 設定の検出 ===== */
 const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ===== Lenis smooth scroll（reduced-motion 時は無効） ===== */
+/* ===== Lenis smooth scroll（軽め設定 / reduced-motion 時は無効） ===== */
 let lenis = null;
 if(window.Lenis && !REDUCE){
-  lenis = new Lenis({ duration:1.1, smoothWheel:true });
+  lenis = new Lenis({ duration:0.8, lerp:0.12, smoothWheel:true, wheelMultiplier:1 });
   const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
   requestAnimationFrame(raf);
 }
@@ -60,15 +60,6 @@ if(window.Splide && document.getElementById('heroSlider')){
     type:'fade', rewind:true, autoplay:!REDUCE, interval:3000, speed:1200,
     perPage:1, pagination:false, arrows:false, drag:false, pauseOnHover:false
   }).mount();
-}
-
-/* ===== Swiper column slider ===== */
-if(window.Swiper && document.querySelector('.columns__swiper')){
-  new Swiper('.columns__swiper', {
-    slidesPerView:1.1, spaceBetween:24,
-    breakpoints:{ 768:{ slidesPerView:3.2, spaceBetween:24 } },
-    scrollbar:{ el:'.columns__scrollbar', draggable:true }
-  });
 }
 
 /* ===== 行単位テキスト出現の下準備（<br>ごとに行を span 化） ===== */
