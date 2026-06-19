@@ -16,13 +16,27 @@
 - 静的 HTML / CSS / JavaScript（CMSなし・フォームは見た目のみのデモ）
 - アニメーション: GSAP + ScrollTrigger / Lenis（スムーススクロール）/ Splide（ヒーロー）/ Swiper（コラム）
 - フォント: Zen Old Mincho + Cormorant Garamond + Noto Sans JP
+- 会社案内チャットボット: Claude Haiku 4.5（`@anthropic-ai/sdk`）+ サーバーレス関数 `api/chat.js`
+
+## チャットボット
+
+全ページ右下の💬から起動する会社案内アシスタント。回答は Compass Works の案内に限定。
+
+- **APIキーはサーバー側のみ**（環境変数 `ANTHROPIC_API_KEY`）。フロントには出さない
+- フロント（`js/chat.js`）→ `POST /api/chat` → Claude を代理呼び出し
+- 本番(Vercel): Settings → Environment Variables に `ANTHROPIC_API_KEY` を登録
+- ⚠️ 公開エンドポイントです。本番運用ではレート制限／不正対策の追加を推奨
 
 ## ローカルでの起動
 
 ```bash
+npm install                          # @anthropic-ai/sdk を取得
+export ANTHROPIC_API_KEY=sk-ant-...  # チャットを使う場合のみ必要
 node .claude/server.js
 # → http://localhost:4321
 ```
+
+※ キー未設定でもサイトは表示されます（チャット送信時のみエラー応答）。
 
 ## ディレクトリ
 

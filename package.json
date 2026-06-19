@@ -1,0 +1,9 @@
+{
+  "name": "compass-works-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Compass Works コーポレートサイト デモ（チャットボット付き）",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.69.0"
+  }
+}
