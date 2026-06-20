@@ -23,9 +23,12 @@ module.exports = async (req, res) => {
     res.end(JSON.stringify({ reply }));
   } catch (e) {
     const code = e && e.code;
-    const status = code === 'BAD_INPUT' ? 400 : code === 'NO_KEY' ? 500 : 500;
+    let status = 500;
+    let error = 'サーバーエラーが発生しました。時間をおいて再度お試しください。';
+    if (code === 'BAD_INPUT') { status = 400; error = '入力が不正です。'; }
+    else if (code === 'NO_KEY') { status = 503; error = 'ただいまAIアシスタントを準備中です（サーバーにAPIキーが未設定）。お問い合わせはお問い合わせフォームをご利用ください。'; }
     res.statusCode = status;
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    res.end(JSON.stringify({ error: status === 400 ? '入力が不正です' : 'サーバーエラーが発生しました' }));
+    res.end(JSON.stringify({ error }));
   }
 };

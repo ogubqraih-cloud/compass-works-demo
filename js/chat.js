@@ -107,14 +107,18 @@
         body: JSON.stringify({ messages: history.slice(-12) }),
       });
       typing.remove();
-      if (!res.ok) throw new Error('http ' + res.status);
-      const data = await res.json();
+      const data = await res.json().catch(() => null);
+      if (!res.ok) {
+        // サーバーが返した具体的なエラー文を表示（原因が分かるように）
+        addBubble('assistant', (data && data.error) || ('通信エラーが発生しました（HTTP ' + res.status + '）。'));
+        return;
+      }
       const reply = (data && data.reply) || '申し訳ありません、うまくお答えできませんでした。';
       addBubble('assistant', reply);
       history.push({ role: 'assistant', content: reply });
     } catch (err) {
       typing.remove();
-      addBubble('assistant', '通信エラーが発生しました。時間をおいて再度お試しください。');
+      addBubble('assistant', 'ネットワークに接続できませんでした。通信環境をご確認のうえ、再度お試しください。');
     } finally {
       busy = false;
       sendBtn.disabled = false;

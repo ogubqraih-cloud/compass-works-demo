@@ -21,9 +21,12 @@ http.createServer((req, res) => {
         const reply = await chatCore.chat(json.messages);
         res.writeHead(200); res.end(JSON.stringify({ reply }));
       } catch (e) {
-        const status = e && e.code === 'BAD_INPUT' ? 400 : 500;
+        const code = e && e.code;
+        let status = 500, error = 'サーバーエラーが発生しました。';
+        if (code === 'BAD_INPUT') { status = 400; error = '入力が不正です。'; }
+        else if (code === 'NO_KEY') { status = 503; error = 'ただいまAIアシスタントを準備中です（ローカルは ANTHROPIC_API_KEY を export してください）。'; }
         res.writeHead(status);
-        res.end(JSON.stringify({ error: status === 400 ? '入力が不正です' : 'サーバーエラー（ローカルは ANTHROPIC_API_KEY を export してください）' }));
+        res.end(JSON.stringify({ error }));
       }
     });
     return;
