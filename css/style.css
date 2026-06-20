@@ -236,6 +236,7 @@ em{font-style:normal;color:var(--accent)}
 .cw-chat__launcher-icon{font-size:1.5rem;line-height:1}
 .cw-chat.is-open .cw-chat__launcher{transform:scale(.9);opacity:.85}
 .cw-chat__panel{position:absolute;right:0;bottom:74px;width:min(370px,calc(100vw - 32px));height:min(540px,calc(100vh - 120px));background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 60px rgba(14,28,56,.28);display:flex;flex-direction:column;overflow:hidden;animation:cwUp .35s var(--ease)}
+.cw-chat__panel[hidden]{display:none}
 @keyframes cwUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .cw-chat__head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;background:linear-gradient(135deg,#0e1c38,#1b2a4a);color:#fff}
 .cw-chat__title{font-weight:700;font-size:1rem}
